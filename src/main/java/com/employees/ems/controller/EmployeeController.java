@@ -1,14 +1,12 @@
 package com.employees.ems.controller;
 
 import com.employees.ems.dto.EmployeeDto;
+import com.employees.ems.mapper.EmployeeMapper;
 import com.employees.ems.service.EmployeeService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 //RequestMapping defines the base URL
@@ -27,6 +25,30 @@ public class EmployeeController {
 
          return new ResponseEntity<>(savedEmployee, HttpStatus.CREATED);
      }
+
+
+     //Get employee REST API
+    //This REST Api being exposed by this back end java is just going to call the service
+    //and return the value
+    @GetMapping("{id}")
+    public ResponseEntity<EmployeeDto> getEmployeeById(@RequestBody @PathVariable("id") Long employeeId){
+
+
+
+        return new ResponseEntity<>(employeeService.getEmployeeById(employeeId), HttpStatus.ACCEPTED);
+
+    }
+
+    @GetMapping("help")
+    public ResponseEntity<String> getHelp(){
+        String help = "Create Employee: \n" +
+                "{firstName: fName, \n" +
+                "lastName : lName, \n" +
+                "email: emailAddr}";
+
+
+        return new ResponseEntity<>(help, HttpStatus.ACCEPTED);
+    }
 
 
 }
