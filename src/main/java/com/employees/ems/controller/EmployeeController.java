@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 //RequestMapping defines the base URL
 @AllArgsConstructor
@@ -50,5 +52,29 @@ public class EmployeeController {
         return new ResponseEntity<>(help, HttpStatus.ACCEPTED);
     }
 
+    @GetMapping
+    //Build get all employees rest api
+    public ResponseEntity<List<EmployeeDto>> getAllEmployees(){
+        List<EmployeeDto> employees = employeeService.getAllEmployees();
 
+
+        return ResponseEntity.ok(employees);
+    }
+
+
+    //Build update employee rest api
+    @PutMapping("{id}")
+    public ResponseEntity<EmployeeDto> updateEmployee(@PathVariable("id") Long employeeId, @RequestBody EmployeeDto updatedEmployee){
+       EmployeeDto employeeDto =  employeeService.updateEmployee(employeeId, updatedEmployee);
+        return ResponseEntity.ok(employeeDto);
+    }
+
+
+    //Build delete employee rest api
+    @DeleteMapping("{id}")
+    public ResponseEntity<String> deleteEmployee(@PathVariable("id") Long employeeId){
+        employeeService.deleteEmployee(employeeId);
+
+        return ResponseEntity.ok("Employee deleted successfully");
+    }
 }
