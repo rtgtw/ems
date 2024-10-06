@@ -12,6 +12,7 @@ import java.util.List;
 
 
 //RequestMapping defines the base URL
+@CrossOrigin("*")
 @AllArgsConstructor
 @RestController
 @RequestMapping("/api/employees")
